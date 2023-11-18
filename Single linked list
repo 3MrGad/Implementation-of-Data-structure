@@ -1,0 +1,143 @@
+#include<iostream>
+using namespace std;
+struct node
+{
+    int data;
+    node *next;
+};
+node* head=NULL;
+void insertF(int val)
+{
+  node* newnode=new node;
+  newnode->data=val;
+  newnode->next=head;
+  head=newnode;
+}
+void insertL(int val)
+{
+    node*newnode=new node;
+    newnode->data=val;
+    node* temp=head;
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+    }
+    newnode->next=temp->next;
+    temp->next=newnode;
+}
+void insertM(int val , int bspecificVal)
+{
+    node *newnode=new node;
+    newnode->data=val;
+    node *temp=head;
+    while(temp->next->data!=bspecificVal)
+    {
+        temp=temp->next;
+    }
+    newnode->next=temp->next;
+    temp->next=newnode;
+}
+void Count ()
+{
+    int counter=0;
+    node* temp=head;
+    while(temp!=NULL)
+    {
+        counter++;
+        temp=temp->next;
+    }
+    cout<<"the number of nodes are   "<<counter<<endl;
+}
+void Display()
+{
+    node*temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data;
+        temp=temp->next;
+    }
+    if(head==NULL)
+    {
+        cout<<"No thing in the linked list \n";
+    }
+}
+void DeleteF(){
+node*temp=head;
+head=head->next;
+delete temp;
+}
+void DeleteL()
+{
+    node*temp=head;
+    while(temp->next->next!=NULL)
+    {
+        temp=temp->next;
+    }
+    node*temp2=temp->next;
+    temp->next=NULL;
+    delete temp2;
+}
+void DeleteS(int num)
+{
+    node* temp=head;
+    while(temp->next->data!=num)
+    {
+        temp=temp->next;
+    }
+    node*temp2=temp->next;
+    temp=temp->next->next;
+    delete temp2;
+}
+bool Search(int val)
+{
+    bool flag=false;
+   node*temp=head;
+   while(temp!=NULL)
+   {
+       if(temp->data==val)
+        {flag=true;}
+        temp=temp->next;
+   }
+   return flag;
+}
+int main()
+{
+    int num;
+    cout<<"enter the first element in the node \n";
+    cin>>num;
+    insertF(num);
+    Display();
+    cout<<"\n---------------------------\n";
+    int num2;
+    cout<<"enter the last element in the node \n";
+    cin>>num2;
+    insertL(num2);
+    Display();
+    cout<<"\n---------------------------\n";
+    int num3,num4;
+    cout<<"enter the element and select what element you want put this element before it\n";
+    cin>>num3>>num4;
+    insertM(num3,num4);
+    Display();
+    cout<<"\n---------------------------\n";
+    Count ();
+    cout<<"\n---------------------------\n";
+    int num5;
+    cout<<"enter the number you want check about it in a linked list \n";
+    cin>>num5;
+    if(Search(num5))
+    {
+        cout<<"exist\n";
+    }
+    else
+    {
+        cout<<"NOT exist\n";
+    }
+    cout<<"\n---------------------------\n";
+    DeleteF();
+    Display();
+    cout<<"\n---------------------------\n";
+    DeleteL();
+    Display();
+    return 0;
+}
