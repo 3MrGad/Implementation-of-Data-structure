@@ -1,0 +1,114 @@
+#include<iostream>
+using namespace std;
+struct node
+{
+    int data;
+    node*next;
+};
+node*head=NULL;
+void Push(int val)
+{
+    node*newnode=new node;
+    newnode->data=val;
+    if(head==NULL)
+    {
+        head=newnode;
+        newnode->next=NULL;
+    }
+    else
+    {
+        newnode->next=head;
+        head=newnode;
+    }
+}
+void pop ()
+{
+    if(head==NULL)
+    {
+        cout<<"stack is empty pop can't execute \n";
+    }
+    else
+    {
+        node *temp=head;
+        head=head->next;
+        delete temp;
+    }
+}
+void peek()
+{
+    cout<<head->data;
+}
+void Display()
+{
+    node*temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data;
+        temp=temp->next;
+    }
+}
+void isEmpty()
+{
+    if(head==NULL)
+    {
+        cout<<"is empty\n";
+    }
+        else
+            cout<<"isn\'t empty\n";
+}
+void Count()
+{
+    int counter=0;
+    node*temp=head;
+    while(temp!=NULL)
+    {
+        counter++;
+        temp=temp->next;
+    }
+    cout<<"the number of elements are  "<<counter;
+}
+bool Search(int val)
+{
+    bool flage=false;
+    node*temp=head;
+    while(temp!=NULL)
+    {
+        if(temp->data==val)
+        {
+            flage=true;
+        }
+        temp=temp->next;
+    }
+    return flage;
+}
+int main ()
+{
+    int value1,value2,value3,num;
+    cout<<"push Value \n";
+    cin>>value1;
+    Push(value1);
+    cout<<"push Value \n";
+    cin>>value2;
+    Push(value2);
+    cout<<"push Value \n";
+    cin>>value3;
+    Push(value3);
+    Display();
+    cout<<endl;
+    pop();
+    Display();
+    cout<<"\n";
+    isEmpty();
+    cout<<"\n";
+    Count();
+    cout<<"\n-----------------------\n";
+    cout<<"enter the element you want to check about it \n";
+    cin>>num;
+    if(Search(num))
+    {
+        cout<<"exist\n";
+    }
+    else
+        cout<<"not exist\n";
+    return 0;
+}
