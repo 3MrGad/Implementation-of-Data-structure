@@ -1,0 +1,175 @@
+#include<iostream>
+using namespace std;
+struct node{
+node*prev;
+int data;
+node*next;
+};
+node*head=NULL;
+node*tail=NULL;
+void createf(int val)
+{
+ node *newnode=new node;
+ newnode->data=val;
+    newnode->next=NULL;
+    newnode->prev=NULL;
+    head=newnode;
+    tail=newnode;
+}
+void createS(int val)
+{
+    node* newnode=new node;
+    newnode->data=val;
+    newnode->next=NULL;
+    tail->next=newnode;
+    newnode->prev=tail;
+    tail=newnode;
+}
+void Display()
+{
+    node* ptr=head;
+    while(ptr!=NULL)
+    {
+        cout<<ptr->data<<"    ";
+        ptr=ptr->next;
+    }
+}
+void insertF(int val)
+{
+    node *newnode=new node;
+    newnode->data=val;
+    newnode->next=head;
+    head->prev=newnode;
+    head=newnode;
+    newnode->prev=NULL;
+}
+void insertL(int val)
+{
+    node *newnode=new node;
+    newnode->data=val;
+    newnode->next=NULL;
+    newnode->prev=tail;
+    tail->next=newnode;
+    tail=newnode;
+}
+void insertM(int Bval,int val)
+{
+    node* newnode=new node;
+    newnode->data=val;
+    node* temp=head;
+    while(temp->next->data!=Bval)
+    {
+        temp=temp->next;
+    }
+    newnode->next=temp->next;
+    temp->next->prev=newnode;
+    newnode->prev=temp;
+    temp->next=newnode;
+}
+void DisplayBack()
+{
+    node *temp=tail;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<"   ";
+        temp=temp->prev;
+    }
+}
+void Count()
+{
+    node*temp=head;
+    int counter=0;
+    while(temp!=NULL)
+    {
+        counter++;
+        temp=temp->next;
+    }
+    cout<<"the number of elements are "<<counter<<endl;
+}
+bool Search(int val)
+{
+    bool flage=false;
+    node*temp=head;
+    while(temp!=NULL)
+    {
+        if(temp->data==val)
+        {
+            flage=true;
+        }
+        temp=temp->next;
+    }
+    return flage;
+}
+void DeleteF()
+{
+    node*temp=head;
+    head=head->next;
+    delete temp;
+}
+void DeleteL()
+{
+    node*temp=tail;
+    tail=tail->prev;
+    tail->next=NULL;
+    delete temp;
+}
+void DeleteM(int val)
+{
+    node*temp=head;
+    while(temp->data!=val)
+    {
+        temp=temp->next;
+    }
+    temp->next->prev=temp->prev;
+    temp->prev->next=temp->next;
+    temp->prev=NULL;
+    temp->next=NULL;
+}
+int main ()
+{
+    int value,Bval;
+    cout<<"enter your first value \n";
+    cin>>value;
+    createf(value);
+    cout<<"\nenter your second value \n";
+    cin>>value;
+    createS(value);
+    Display();
+    cout<<"\nenter your value in insertfirst \n";
+    cin>>value;
+    insertF(value);
+    Display();
+    cout<<"\nenter your value in insertSecond \n";
+    cin>>value;
+    insertL(value);
+    Display();
+    cout<<"\nenter the element you want insert before it and the element \n";
+    cin>>Bval>>value;
+    insertM(Bval,value);
+    Display();
+    cout<<"\n-------------------\n";
+    DisplayBack();
+    cout<<endl;
+    Count();
+    cout<<"\n---------------------\n";
+    cout<<"enter the element that you want search about it \n";
+    cin>>value;
+   if(Search(value))
+    {
+        cout<<"the element exist \n";
+    }
+    else
+    {cout<<"the element not exist \n";}
+    cout<<"\n---------------------\n";
+    DeleteF();
+    Display();
+    cout<<"\n---------------------\n";
+    DeleteL();
+    Display();
+    cout<<"\n----------------------\n";
+    cout<<"enter the value you want delete it from middle \n";
+    cin>>value;
+    DeleteM(value);
+    Display();
+    return 0;
+}
