@@ -1,0 +1,150 @@
+#include<iostream>
+using namespace std;
+struct node
+{
+    int data;
+    node*next;
+};
+node*Front=NULL;
+node*Back=NULL;
+void enqueue(int val)
+{
+    node*newnode=new node;
+    newnode->data=val;
+    if(Front==NULL)
+    {
+        newnode->next=NULL;
+        Front=newnode;
+        Back=newnode;
+    }
+    else
+    {
+        newnode->next=NULL;
+        Back->next=newnode;
+        Back=newnode;
+    }
+}
+void Display()
+{
+    node*temp=Front;
+    if(Front==NULL)
+    {
+        cout<<"empty";
+    }
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<"   ";
+        temp=temp->next;
+    }
+    cout<<endl;
+}
+bool isempty()
+{
+    if(Front==NULL)
+    {
+        return true;
+    }
+    else
+        return false;
+}
+void Dequeue()
+{
+    node*temp=Front;
+    Front=Front->next;
+    delete temp;
+}
+void peek()
+{
+    cout<<Front->data<<endl;
+}
+void Count ()
+{
+    int counter=0;
+    node*temp=Front;
+    while(temp!=NULL)
+    {
+        counter++;
+        temp=temp->next;
+    }
+    cout<<"the number of elements in queue are :"<<counter<<endl;
+}
+bool Search(int key)
+{
+    node*temp=Front;
+    while(temp!=NULL)
+    {
+        if(temp->data==key)
+        {
+            return true;
+        }
+        temp=temp->next;
+    }
+    return false;
+}
+void Clear()
+{
+    if(isempty())
+    {
+        cout<<"the queue already Clear \n";
+    }
+    else
+    {
+        while(Front!=NULL)
+        {
+            Dequeue();
+        }
+        cout<<"It Cleared successfily\n";
+    }
+}
+void isfull()
+{
+    node*newnode=new node;
+    node*ptr;
+    ptr=newnode;
+    if(ptr=NULL)
+    {
+        cout<<"It is full\n";
+    }
+    else
+    {
+        cout<<"It is not full\n";
+    }
+}
+int main ()
+{
+int num1,key;
+cout<<"enter the element \n";
+cin>>num1;
+enqueue(num1);
+cout<<"enter the element \n";
+cin>>num1;
+enqueue(num1);
+cout<<"enter the element \n";
+cin>>num1;
+enqueue(num1);
+cout<<"enter the element \n";
+cin>>num1;
+enqueue(num1);
+Display();
+if(isempty())
+{
+    cout<<"the queue is empty \n";
+}
+else
+   {cout<<"the queue is not empty\n";}
+Dequeue();
+Display();
+peek();
+Count ();
+cout<<"enter the element you want search about it \n";
+cin>>key;
+if(Search(key)){
+    cout<<"is exist \n";
+}
+else
+{cout<<"not exist \n";}
+Clear();
+Display();
+isfull();
+    return 0;
+}
