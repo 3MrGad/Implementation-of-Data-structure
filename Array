@@ -1,0 +1,94 @@
+#include<iostream>
+using namespace std;
+void traversal(int arr[],int Size);//printing
+void insertion (int arr[],int &Size,int element,int position);//enter new element in a chosen position
+void Deletion  (int arr[],int &Size,int position); //Deleting element form chosen position
+int Search  (int arr[],int Size,int element);//Searching position of element
+void Sorting(int arr[],int Size);//Bubble Sort
+int main () {
+    int Size,element,position,SearchNum;
+    cout<<"enter the Size of array \n";
+    cin>>Size;
+    int arr[Size];
+    cout<<"enter the elements of array \n";
+    for(int i=0;i<Size;i++)
+    {
+        cin>>arr[i];
+    }
+    cout<<"enter your element and the position you want put it in array \n";
+    cin>>element>>position;
+    insertion(arr,Size,element,position);
+    traversal(arr,Size);
+    cout<<"enter the position that you want to delete the element from it \n";
+    cin>>position;
+    Deletion  (arr,Size,position);
+    traversal(arr,Size);
+    cout<<"enter the element you want search about it\n";
+    cin>>SearchNum;
+    cout<<Search (arr,Size,SearchNum)<<endl;
+    Sorting(arr,Size);
+    cout<<"the array after Sorting :\n";
+    traversal(arr,Size);
+    return 0;
+}
+void traversal(int arr[],int Size)
+{
+    for(int i=0;i<Size;i++)
+    {
+        cout<<arr[i]<<endl;
+    }
+}
+void insertion (int arr[],int& Size,int element,int position)
+{
+    for(int i=Size-1;i>=position;i--)
+    {
+        arr[i+1]=arr[i];
+    }
+    arr[position]=element;
+    Size++;
+}
+void Deletion  (int arr[],int &Size,int position){
+    for(int i=position;i<Size;i++)
+    {
+        arr[i]=arr[i+1];
+    }
+    Size--;
+}
+int Search  (int arr[],int Size,int element)
+{
+    int high=Size-1;
+    int low=0;
+    while(low<=high)
+    {
+        int mid=(low+high)/2;
+        if(arr[mid]==element)
+        {
+            cout<<"the position of element is :\t";
+            return mid;
+        }
+        if(arr[mid]>element)
+        {
+            high=mid-1;
+        }
+        if(arr[mid]<element)
+        {
+            low=mid+1;
+        }
+    }
+    return 0;
+}
+void Sorting(int arr[],int Size){
+    int temp;
+    for(int i=0;i<Size;i++)
+    {
+        for(int j=0;j<Size-1;j++)
+        {
+            if(arr[j]>arr[j+1])
+            {
+                temp=arr[j];
+                arr[j]=arr[j+1];
+                arr[j+1]=temp;
+            }
+        }
+    }
+}
